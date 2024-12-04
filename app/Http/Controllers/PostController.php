@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddPostRequest;
 use App\Http\Requests\CheckPostIdRequest;
 use App\Http\Requests\DeletePostRequest;
+use App\Http\Requests\GetPostsRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Services\PostService;
@@ -15,6 +16,7 @@ use App\Enums\ResponseCodeEnum;
 class PostController extends Controller
 {
     public function add(AddPostRequest $request){
+
         try{
             $user_id= auth()->user()->id;
             $res = PostService::addPost($user_id,$request->title, $request->content,$request->if_publish);
@@ -69,4 +71,34 @@ class PostController extends Controller
             return $this->errorResponse('An unexpected error occurred' , ResponseCodeEnum::Internal_Server_Error);
         }
     }
+
+    
+
+    public function get_all(GetPostsRequest $request){
+
+        try{
+            $res= PostService::getAll($request->title);
+            return $this->successResponse(PostResource::collection($res));
+        }
+
+        catch(\Exception $e){
+            return $this->errorResponse('An unexpected error occurred' , ResponseCodeEnum::Internal_Server_Error);
+        }
+    }
+
+
+    public function get_all_by_user_id(GetPostsRequest $request){
+
+        try{
+            $user_id = auth()->user()->id;
+            $res= PostService::get_all_by_user_id($user_id, $request->title);
+            return $this->successResponse(PostResource::collection($res));
+        }
+        catch(\Exception $e){
+            return $this->errorResponse('An unexpected error occurred' , ResponseCodeEnum::Internal_Server_Error);
+        }
+    }
 }
+
+
+

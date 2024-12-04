@@ -35,6 +35,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/published-by-id/{id}',[PostController::class, 'published_by_id']);
 
         Route::post('/unpublished-by-id/{id}',[PostController::class, 'unpublished_by_id']);
+
+        Route::get('/get-all',[PostController::class, 'get_all']);
+
+
+        Route::get('/user/get-all-by-user-id',[PostController::class, 'get_all_by_user_id']);
     });
 
 });
