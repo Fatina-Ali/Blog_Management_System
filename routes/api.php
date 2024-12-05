@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::get('/image/download',[ImageController::class,'download_image']);
 Route::middleware('auth:sanctum')->group(function () {
+
+
+
 
     Route::prefix('/user')->group(function () {
 
@@ -45,8 +48,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('/user')->group(function () {
-
-
 
     Route::post('/register',[AuthController ::class , 'register']);
 

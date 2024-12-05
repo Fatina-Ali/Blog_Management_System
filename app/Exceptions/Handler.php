@@ -24,12 +24,12 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        // $this->renderable(function (AccessDeniedHttpException $e, $request) {
-        //     return response()->json(['success'=>false, 'status'=>400,'data'=>[],'message'=> 'You are not allowed to access this page.'],400);
-        // });
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            return response()->json(['success'=>false, 'status'=>400,'data'=>[],'message'=> 'You are not allowed to access this page.'],400);
+        });
 
-        // $this->renderable(function (NotFoundHttpException $e, $request) {
-        //     return response()->json(['success'=>false, 'status'=>404,'data'=>[],'message'=> 'There is not an object with this ID'],404);
-        // });
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            return response()->json(['success'=>false, 'status'=>404,'data'=>[],'message'=> 'There is not an object with this ID'],404);
+        });
     }
 }
